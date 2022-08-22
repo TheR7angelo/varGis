@@ -7,7 +7,7 @@ namespace varGis
         {
             var envQgis = Getter.GetQgisEnv();
             
-            if (envQgis != string.Empty)
+            if (envQgis == string.Empty)
             {
                 MajQgis();
             }
@@ -25,11 +25,9 @@ namespace varGis
 
         private static void MajQgis()
         {
-            var t = Fonction.MostRecentQgis();
-            essai.Scan.SearchLink(Const.DirStartProgram);
-            // var t = Getter.GetAllQgis();
-            // var versionQgis = Getter.GetQgisVer(qgisPath);
-            // Console.WriteLine(qgisPath);
+            var qgis = Fonction.MostRecentQgis();
+            Console.WriteLine(qgis);
+
         }
     }
 }

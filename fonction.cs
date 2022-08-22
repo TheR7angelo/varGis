@@ -27,7 +27,6 @@ public static partial class Fonction
                 Name = split,
                 WorkingDirectory = Getter.GetShortcutTargetFile(path),
                 VersionStr = string.Join(".", version),
-                VersionInt = int.Parse(string.Join("", version)),
                 VersionInts = version
             };
             strucs.Add(struc);

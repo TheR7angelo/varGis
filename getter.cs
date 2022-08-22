@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Collections;
+using System.Security.Principal;
 using Lnk;
 
 namespace varGis;
@@ -24,37 +25,6 @@ public static class Getter
         return null;
     }
 
-    // public static float GetQgisVer(string path)
-    // {
-    //     path = @"C:\Program Files\QGIS\QGIS 2.18\bin\qgis-ltr-bin.exe";
-    //     var versionInfo = FileVersionInfo.GetVersionInfo(path);
-    //     var version = versionInfo.FileVersion;
-    //
-    //     return 0f;
-    // }
-
-    // public static List<Structs.QgisStruct> GetAllQgis()
-    // {
-    //     #pragma warning disable CA1416
-    //     var valueSubKey = RegistryKey.OpenBaseKey(
-    //         RegistryHive.LocalMachine,
-    //         RegistryView.Registry64).OpenSubKey(@"SOFTWARE\", false)
-    //         ?.GetSubKeyNames();
-    //     #pragma warning restore CA1416
-    //
-    //     if (valueSubKey == null) return null;
-    //     foreach (var subKey in valueSubKey)
-    //     {
-    //         if (subKey.ToLower().Contains("qgis"))
-    //         {
-    //             var root = Registry.LocalMachine.OpenSubKey($@"SOFTWARE\{subKey}");
-    //             
-    //         }
-    //     }
-    //
-    //     return null;
-    // }
-
     private static IEnumerable<string?> GetVarEnv(string env,
         EnvironmentVariableTarget target = EnvironmentVariableTarget.User)
     {
@@ -65,8 +35,10 @@ public static class Getter
     public static string GetShortcutTargetFile(string shortcutFilename)
     {
         var lnk = Lnk.Lnk.LoadFile(shortcutFilename);
-        Console.WriteLine(lnk);
 
-        return string.Empty;
+        var paths = lnk.LocalPath.Split("\"").First().Split("\\");
+        paths = paths.SkipLast(1).ToArray();
+
+        return string.Join("\\", paths);
     }
 }
